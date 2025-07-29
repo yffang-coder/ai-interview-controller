@@ -37,10 +37,10 @@
             <version>1.6.2</version>
         </dependency>
 
-         <!-- Mysql驱动包 -->
+        <!-- Mysql驱动包 -->
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
         </dependency>
 
         <!-- 核心模块-->
@@ -68,9 +68,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.5.15</version>
+                <version>3.3.1</version>
                 <configuration>
-                    <fork>true</fork> <!-- 如果没有该配置，devtools不会生效 -->
+<!--                    <fork>true</fork> &lt;!&ndash; 如果没有该配置，devtools不会生效 &ndash;&gt;-->
                 </configuration>
                 <executions>
                     <execution>
@@ -80,15 +80,43 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>   
-                <groupId>org.apache.maven.plugins</groupId>   
-                <artifactId>maven-war-plugin</artifactId>   
-                <version>3.1.0</version>   
+            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
+<!--           <plugin>-->
+<!--               <groupId>org.apache.maven.plugins</groupId>-->
+<!--               <artifactId>maven-compiler-plugin</artifactId>-->
+<!--               <version>3.13.0</version>-->
+<!--               <configuration>-->
+<!--                   <parameters>true</parameters>-->
+<!--                   <source>17</source>-->
+<!--                   <target>17</target>-->
+<!--               </configuration>-->
+<!--           </plugin>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.10.1</version>
                 <configuration>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
-                    <warName>${project.artifactId}</warName>
-                </configuration>   
-           </plugin>   
+                    <source>17</source>
+                    <target>17</target>
+                    <parameters>true</parameters>
+                    <!-- 启用 -parameters
+                    启用 Java 编译器的 -parameters 标志。
+                    作用：
+                    默认情况下，Java 编译器在生成字节码时不会保留方法参数的名称（通过反射获取时为 arg0、arg1 等）。
+                    -parameters 标志指示编译器将实际参数名称（如 key、configKey）存储在字节码中，允许通过反射获取（Method.getParameters()）
+                    -->
+                </configuration>
+            </plugin>
+
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-war-plugin</artifactId>-->
+<!--                <version>3.1.0</version>-->
+<!--                <configuration>-->
+<!--                    <failOnMissingWebXml>false</failOnMissingWebXml>-->
+<!--                    <warName>${project.artifactId}</warName>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
         </plugins>
         <finalName>${project.artifactId}</finalName>
     </build>
