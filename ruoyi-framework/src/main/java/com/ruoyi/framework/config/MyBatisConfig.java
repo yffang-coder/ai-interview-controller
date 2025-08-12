@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import javax.sql.DataSource;
 
+import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import org.apache.ibatis.io.VFS;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -100,11 +101,12 @@ public class MyBatisConfig {
         typeAliasesPackage = setTypeAliasesPackage(typeAliasesPackage);
         VFS.addImplClass(SpringBootVFS.class);
 
-        final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
-        sessionFactory.setDataSource(dataSource);
-        sessionFactory.setTypeAliasesPackage(typeAliasesPackage);
-        sessionFactory.setMapperLocations(resolveMapperLocations(StringUtils.split(mapperLocations, ",")));
-        sessionFactory.setConfigLocation(new DefaultResourceLoader().getResource(configLocation));
-        return sessionFactory.getObject();
+        //final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
+        MybatisSqlSessionFactoryBean sessionFactoryBean = new MybatisSqlSessionFactoryBean();
+        sessionFactoryBean.setDataSource(dataSource);
+        sessionFactoryBean.setTypeAliasesPackage(typeAliasesPackage);
+        sessionFactoryBean.setMapperLocations(resolveMapperLocations(StringUtils.split(mapperLocations, ",")));
+        sessionFactoryBean.setConfigLocation(new DefaultResourceLoader().getResource(configLocation));
+        return sessionFactoryBean.getObject();
     }
 }
