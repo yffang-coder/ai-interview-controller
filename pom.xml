@@ -40,6 +40,7 @@
         <mybatis-boot.version>3.0.3</mybatis-boot.version>
         <mybatis-plus.version>3.5.7</mybatis-plus.version>
         <mybatis.version>3.5.16</mybatis.version>
+        <mybatis.version>3.5.16</mybatis.version>
     </properties>
 
     <!-- 依赖声明 -->
@@ -250,6 +251,19 @@
                 <version>${ruoyi.version}</version>
             </dependency>
 
+            <!-- 通用工具-->
+            <dependency>
+                <groupId>com.ruoyi</groupId>
+                <artifactId>ruoyi-main</artifactId>
+                <version>${ruoyi.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-generator</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -260,6 +274,7 @@
         <module>ruoyi-quartz</module>
         <module>ruoyi-generator</module>
         <module>ruoyi-common</module>
+        <module>ruoyi-main</module>
     </modules>
     <packaging>pom</packaging>
 
