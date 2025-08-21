@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IWxLoginService extends IService<WxLogin> {
 
+    WxLogin login(String code);
 }

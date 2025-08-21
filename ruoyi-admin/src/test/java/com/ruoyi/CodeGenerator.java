@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 
 public class CodeGenerator {
     public static void main(String[] args) {
-        // TODO Auto-generated method stub
+
         FastAutoGenerator.create("jdbc:mysql://10.186.37.153:3306/ai_interview",
                         "hillstone", "hIllstoneUes4Ever")
                 .globalConfig(builder -> builder
@@ -28,6 +28,7 @@ public class CodeGenerator {
                                 "ai_interview_banner",
                                 "ai_interview_category_item",
                                 "ai_interview_interview_records",
+                                "ai_interview_category",
                                 "ai_interview_models",
                                 "wx_login")
                         .addTablePrefix("ai_interview_")

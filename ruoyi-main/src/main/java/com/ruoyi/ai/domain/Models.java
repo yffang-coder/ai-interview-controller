@@ -16,8 +16,7 @@ import lombok.Setter;
  * @author ruoyi
  * @since 2025-08-20
  */
-@Getter
-@Setter
+
 @TableName("ai_interview_models")
 public class Models implements Serializable {
 
@@ -52,5 +51,102 @@ public class Models implements Serializable {
      */
     private Integer multiple;
 
+
     private Integer orderNum;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getQuestionPrompt() {
+        return questionPrompt;
+    }
+
+    public void setQuestionPrompt(String questionPrompt) {
+        this.questionPrompt = questionPrompt;
+    }
+
+    public String getAnswerPrompt() {
+        return answerPrompt;
+    }
+
+    public void setAnswerPrompt(String answerPrompt) {
+        this.answerPrompt = answerPrompt;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public LocalDateTime getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(LocalDateTime createTime) {
+        this.createTime = createTime;
+    }
+
+    public LocalDateTime getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(LocalDateTime updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public Integer getDelFlag() {
+        return delFlag;
+    }
+
+    public void setDelFlag(Integer delFlag) {
+        this.delFlag = delFlag;
+    }
+
+    public Integer getCharge() {
+        return charge;
+    }
+
+    public void setCharge(Integer charge) {
+        this.charge = charge;
+    }
+
+    public Integer getMultiple() {
+        return multiple;
+    }
+
+    public void setMultiple(Integer multiple) {
+        this.multiple = multiple;
+    }
+
+    public Integer getOrderNum() {
+        return orderNum;
+    }
+
+    public void setOrderNum(Integer orderNum) {
+        this.orderNum = orderNum;
+    }
 }

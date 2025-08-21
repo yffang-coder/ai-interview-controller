@@ -1,7 +1,6 @@
 package com.ruoyi.ai.service;
 
 import com.ruoyi.ai.domain.Category;
-import com.ruoyi.ai.domain.CategoryItem;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
@@ -12,9 +11,9 @@ import java.util.List;
  * </p>
  *
  * @author ruoyi
- * @since 2025-08-20
+ * @since 2025-08-21
  */
-public interface ICategoryItemService extends IService<CategoryItem> {
+public interface ICategoryService extends IService<Category> {
 
-
+    List<Category> getAllCategoryList();
 }

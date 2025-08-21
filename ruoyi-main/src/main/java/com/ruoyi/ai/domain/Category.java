@@ -5,8 +5,6 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,31 +14,32 @@ import lombok.Setter;
  * </p>
  *
  * @author ruoyi
- * @since 2025-08-20
+ * @since 2025-08-21
  */
 
-@TableName("wx_login")
-public class WxLogin implements Serializable {
+@TableName("ai_interview_category")
+public class Category implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    private String openid;
+    private String text;
 
-    @JsonProperty("session_key")
-    private String sessionKey;
+    private String src;
 
-    private String unionid;
-
-    private String errcode;
-
-    private String errmsg;
+    private String name;
 
     private LocalDateTime createTime;
 
     private LocalDateTime updateTime;
+
+    private Integer delFlag;
+
+    private Boolean enable;
+
+    private Integer orderNum;
 
     public Integer getId() {
         return id;
@@ -50,44 +49,28 @@ public class WxLogin implements Serializable {
         this.id = id;
     }
 
-    public String getOpenid() {
-        return openid;
+    public String getText() {
+        return text;
     }
 
-    public void setOpenid(String openid) {
-        this.openid = openid;
+    public void setText(String text) {
+        this.text = text;
     }
 
-    public String getSessionKey() {
-        return sessionKey;
+    public String getSrc() {
+        return src;
     }
 
-    public void setSessionKey(String sessionKey) {
-        this.sessionKey = sessionKey;
+    public void setSrc(String src) {
+        this.src = src;
     }
 
-    public String getUnionid() {
-        return unionid;
+    public String getName() {
+        return name;
     }
 
-    public void setUnionid(String unionid) {
-        this.unionid = unionid;
-    }
-
-    public String getErrcode() {
-        return errcode;
-    }
-
-    public void setErrcode(String errcode) {
-        this.errcode = errcode;
-    }
-
-    public String getErrmsg() {
-        return errmsg;
-    }
-
-    public void setErrmsg(String errmsg) {
-        this.errmsg = errmsg;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public LocalDateTime getCreateTime() {
@@ -104,5 +87,29 @@ public class WxLogin implements Serializable {
 
     public void setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Integer getDelFlag() {
+        return delFlag;
+    }
+
+    public void setDelFlag(Integer delFlag) {
+        this.delFlag = delFlag;
+    }
+
+    public Boolean getEnable() {
+        return enable;
+    }
+
+    public void setEnable(Boolean enable) {
+        this.enable = enable;
+    }
+
+    public Integer getOrderNum() {
+        return orderNum;
+    }
+
+    public void setOrderNum(Integer orderNum) {
+        this.orderNum = orderNum;
     }
 }
