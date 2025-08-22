@@ -132,6 +132,6 @@ xss:
   urlPatterns: /system/*,/monitor/*,/tool/*
 mp:
   appid: wxc7a1ea45ccc7bcab
-  secret:
+  secret: 0d7f94a39836bdb125e612fb23ad7405
   grant_type: authorization_code
   token_url: https://api.weixin.qq.com/sns/jscode2session?appid={appid}&secret={secret}&js_code={js_code}&grant_type=authorization_code

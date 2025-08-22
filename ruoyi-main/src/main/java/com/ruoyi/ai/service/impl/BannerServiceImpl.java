@@ -26,6 +26,6 @@ public class BannerServiceImpl extends ServiceImpl<BannerMapper, Banner> impleme
         queryWrapper.eq(Banner::getDelFlag, 1);
         queryWrapper.orderByAsc(Banner::getOrderNum);
         queryWrapper.select(Banner::getTitle, Banner::getUrl, Banner::getImage);
-        return list();
+        return list(queryWrapper);
     }
 }

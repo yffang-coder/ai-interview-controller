@@ -16,11 +16,12 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author ruoyi
@@ -39,8 +40,9 @@ public class WxLoginServiceImpl extends ServiceImpl<WxLoginMapper, WxLogin> impl
     @Autowired
     RedisCache redisCache;
 
-    private static final Logger logger= LoggerFactory.
+    private static final Logger logger = LoggerFactory.
             getLogger(WxLoginServiceImpl.class);
+
     @Override
     public WxLogin login(String code) {
         Map<String, Object> params = new HashMap<>();
@@ -49,21 +51,21 @@ public class WxLoginServiceImpl extends ServiceImpl<WxLoginMapper, WxLogin> impl
         params.put("secret", mpProperties.getSecret());
         WxLogin wxLogin
                 = restTemplate.getForObject(mpProperties.getTokenUrl(), WxLogin.class, params);
-        logger.info("微信登录返回结果：{}",wxLogin);
-        assert wxLogin != null;
-        if(wxLogin.getErrmsg() == null || (wxLogin.getOpenid()!=null && !wxLogin.getOpenid().isEmpty())){
+        logger.info("微信登录返回结果：{}", wxLogin.toString());
+        // 会话密钥，用于后续解密用户数据
+        //认证 用uuid，唯一标识用 openid
+        wxLogin.setSessionKey(UUID.randomUUID().toString());
+        if (wxLogin.getErrmsg() == null || (wxLogin.getOpenid() != null && !wxLogin.getOpenid().isEmpty())) {
             //// 用户在当前小程序的唯一标识
             //保存唯一标识到数据库
             save(wxLogin);
             save2Redis(wxLogin);
         }
-        // 会话密钥，用于后续解密用户数据
-        wxLogin.setSessionKey(null);
         return wxLogin;
     }
 
     private void save2Redis(WxLogin wxLogin) {
-        redisCache.setCacheObject(CacheConstants.WEXIN_LOGIN_KEY+wxLogin.getOpenid(),
-                wxLogin,60, TimeUnit.MINUTES);
+        redisCache.setCacheObject(CacheConstants.WEXIN_LOGIN_KEY + wxLogin.getSessionKey(),
+                wxLogin, 60, TimeUnit.MINUTES);
     }
 }

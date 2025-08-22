@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,7 +21,21 @@ import lombok.Setter;
  */
 
 @TableName("wx_login")
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class WxLogin implements Serializable {
+    @Override
+    public String toString() {
+        return "WxLogin{" +
+                "id=" + id +
+                ", openid='" + openid + '\'' +
+                ", sessionKey='" + sessionKey + '\'' +
+                ", unionid='" + unionid + '\'' +
+                ", errcode='" + errcode + '\'' +
+                ", errmsg='" + errmsg + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
+    }
 
     private static final long serialVersionUID = 1L;
 

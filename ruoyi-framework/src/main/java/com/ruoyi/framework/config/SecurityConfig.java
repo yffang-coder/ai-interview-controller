@@ -1,5 +1,6 @@
 package com.ruoyi.framework.config;
 
+import com.ruoyi.framework.security.filter.MPAuthenticationTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -52,6 +53,12 @@ public class SecurityConfig {
      */
     @Autowired
     private JwtAuthenticationTokenFilter authenticationTokenFilter;
+
+    /**
+     * 移动端认证过滤器
+     */
+    @Autowired
+    private MPAuthenticationTokenFilter mpAuthenticationTokenFilter;
 
     /**
      * 跨域过滤器
@@ -108,7 +115,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests((requests) -> {
                     permitAllUrl.getUrls().forEach(url -> requests.requestMatchers(url).permitAll());
                     // 对于登录login 注册register 验证码captchaImage 允许匿名访问
-                    requests.requestMatchers("/login", "/register", "/captchaImage").permitAll()
+                    requests.requestMatchers("/login", "/register", "/captchaImage","/mp/**")
+                            .permitAll()
                             // 静态资源，可匿名访问
                             .requestMatchers(HttpMethod.GET, "/", "/*.html", "/**.html", "/**.css", "/**.js", "/profile/**").permitAll()
                             .requestMatchers("/swagger-ui.html", "/swagger-resources/**", "/webjars/**", "/*/api-docs", "/druid/**").permitAll()
@@ -118,6 +126,7 @@ public class SecurityConfig {
                 // 添加Logout filter
                 .logout(logout -> logout.logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler))
                 // 添加JWT filter
+                .addFilterAfter(mpAuthenticationTokenFilter,UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 // 添加CORS filter
                 .addFilterBefore(corsFilter, JwtAuthenticationTokenFilter.class)

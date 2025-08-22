@@ -29,10 +29,12 @@ public class MpController extends BaseController {
 
     @RequestMapping("/banners")
     public List<Banner> getAllBannerList() {
-        return bannerService.getAllBannerList();
+        List<Banner> allBannerList = bannerService.getAllBannerList();
+        logger.info("allBannerList:{}", allBannerList);
+        return allBannerList;
     }
 
-    @RequestMapping("/categorys")
+    @RequestMapping("/categories")
     public List<Category> getAllCategoryList() {
         return iCategoryService.getAllCategoryList();
     }
@@ -41,7 +43,7 @@ public class MpController extends BaseController {
     public AjaxResult login(String code) {
         WxLogin wxLogin = wxLoginService.login(code);
         if (wxLogin.getOpenid() != null && !wxLogin.getOpenid().isEmpty()) {
-            return success();
+            return success(wxLogin);
         }
         return AjaxResult.error(401, "登录失败");
     }
