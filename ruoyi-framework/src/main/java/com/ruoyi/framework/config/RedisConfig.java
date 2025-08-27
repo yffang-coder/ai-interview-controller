@@ -47,6 +47,9 @@ public class RedisConfig extends CachingConfigurerSupport {
 
     /**
      * 限流脚本
+     * 每个 key 在 time 秒内最多允许 count 次请求。
+     * 每次请求通过 INCR 增加计数，并检查是否超过 count。
+     * 首次请求时（计数为 1），设置 key 的过期时间为 time 秒，确保窗口结束后计数重置。
      */
     private String limitScriptText() {
         return "local key = KEYS[1]\n" +

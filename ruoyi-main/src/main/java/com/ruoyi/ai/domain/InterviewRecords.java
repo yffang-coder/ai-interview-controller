@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,6 +20,7 @@ import lombok.Setter;
  */
 
 @TableName("ai_interview_interview_records")
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class InterviewRecords implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -1,7 +1,11 @@
 package com.ruoyi.ai.service;
 
+import com.ruoyi.ai.domain.AiChatMessage;
 import com.ruoyi.ai.domain.InterviewRecords;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.ruoyi.ai.domain.MpRequest;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +17,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IInterviewRecordsService extends IService<InterviewRecords> {
 
+    List<AiChatMessage> loadChatMessageFromDB(String sessionId);
+
+    void saveMessage(MpRequest mpRequest, List<AiChatMessage> aiChatMessages, String openid);
 }

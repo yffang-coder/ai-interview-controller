@@ -132,6 +132,11 @@ xss:
   urlPatterns: /system/*,/monitor/*,/tool/*
 mp:
   appid: wxc7a1ea45ccc7bcab
-  secret: 0d7f94a39836bdb125e612fb23ad7405
+  secret:
   grant_type: authorization_code
   token_url: https://api.weixin.qq.com/sns/jscode2session?appid={appid}&secret={secret}&js_code={js_code}&grant_type=authorization_code
+
+ai:
+  client_id: APIKey-20250825151643
+  token: 
+  token_url: https://qianfan.baidubce.com/v2/chat/completions

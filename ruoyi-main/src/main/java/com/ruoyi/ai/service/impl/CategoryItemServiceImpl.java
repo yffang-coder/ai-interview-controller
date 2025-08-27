@@ -22,4 +22,13 @@ import java.util.List;
 public class CategoryItemServiceImpl extends ServiceImpl<CategoryItemMapper, CategoryItem> implements ICategoryItemService {
 
 
+    @Override
+    public List<CategoryItem> getCategoryItemList(String category) {
+        LambdaQueryWrapper<CategoryItem> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(CategoryItem::getCategory, category);
+        queryWrapper.eq(CategoryItem::getDelFlag, 1);
+        queryWrapper.select(CategoryItem::getText, CategoryItem::getValue);
+        queryWrapper.orderByAsc(CategoryItem::getOrderNum);
+        return list(queryWrapper);
+    }
 }

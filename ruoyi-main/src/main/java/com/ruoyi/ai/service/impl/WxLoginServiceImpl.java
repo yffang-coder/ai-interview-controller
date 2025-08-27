@@ -56,7 +56,7 @@ public class WxLoginServiceImpl extends ServiceImpl<WxLoginMapper, WxLogin> impl
         //认证 用uuid，唯一标识用 openid
         wxLogin.setSessionKey(UUID.randomUUID().toString());
         if (wxLogin.getErrmsg() == null || (wxLogin.getOpenid() != null && !wxLogin.getOpenid().isEmpty())) {
-            //// 用户在当前小程序的唯一标识
+            // 用户在当前小程序的唯一标识
             //保存唯一标识到数据库
             save(wxLogin);
             save2Redis(wxLogin);

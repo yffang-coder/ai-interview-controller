@@ -17,4 +17,5 @@ import java.util.List;
 public interface ICategoryItemService extends IService<CategoryItem> {
 
 
+    List<CategoryItem> getCategoryItemList(String category);
 }

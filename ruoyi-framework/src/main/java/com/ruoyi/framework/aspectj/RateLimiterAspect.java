@@ -19,6 +19,10 @@ import com.ruoyi.common.enums.LimitType;
 import com.ruoyi.common.exception.ServiceException;
 import com.ruoyi.common.utils.StringUtils;
 import com.ruoyi.common.utils.ip.IpUtils;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.servlet.support.RequestContext;
 
 /**
  * 限流处理
@@ -68,6 +72,10 @@ public class RateLimiterAspect {
         StringBuffer stringBuffer = new StringBuffer(rateLimiter.key());
         if (rateLimiter.limitType() == LimitType.IP) {
             stringBuffer.append(IpUtils.getIpAddr()).append("-");
+        }else if (rateLimiter.limitType() == LimitType.IDENTITY) {
+            ServletRequestAttributes requestAttributes = (ServletRequestAttributes)RequestContextHolder.getRequestAttributes();
+            String openid = requestAttributes.getRequest().getHeader("openid");
+            stringBuffer.append(openid).append("-");
         }
         MethodSignature signature = (MethodSignature) point.getSignature();
         Method method = signature.getMethod();
