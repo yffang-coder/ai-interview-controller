@@ -2,6 +2,7 @@ package com.ruoyi.web.controller.ai_interview;
 
 import com.ruoyi.ai.domain.*;
 import com.ruoyi.ai.service.*;
+import com.ruoyi.ai.service.impl.InterviewRecordsServiceImpl;
 import com.ruoyi.common.annotation.RateLimiter;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
@@ -33,6 +34,9 @@ public class MpController extends BaseController {
     @Autowired
     ICategoryItemService iCategoryItemService;
 
+    @Autowired
+    InterviewRecordsServiceImpl interviewRecordsService;
+
     @RequestMapping("/banners")
     public List<Banner> getAllBannerList() {
         List<Banner> allBannerList = bannerService.getAllBannerList();
@@ -57,13 +61,14 @@ public class MpController extends BaseController {
 
     /**
      * 和 ai 聊天
+     *
      * @param mpRequest
      * @param openid
      * @return
      */
     @PostMapping("/chat")
-    @RateLimiter(key = "mp-chat",time = 3, count = 1, limitType = LimitType.IDENTITY)
-    public MpAnswer chat(@RequestBody MpRequest mpRequest, @RequestHeader("openid") String openid){
+    @RateLimiter(key = "mp-chat", time = 3, count = 1, limitType = LimitType.IDENTITY)
+    public MpAnswer chat(@RequestBody MpRequest mpRequest, @RequestHeader("openid") String openid) {
         return aiService.chat(mpRequest, openid);
     }
 
@@ -75,5 +80,12 @@ public class MpController extends BaseController {
     @GetMapping("/categories/{category}")
     public List<CategoryItem> getCategoryItemList(@PathVariable String category) {
         return iCategoryItemService.getCategoryItemList(category);
+    }
+
+    @GetMapping("/records")
+    public List<ChatRecords> getInterviewRecordsByPage(@RequestParam String subject,
+                                                       @RequestHeader("openid") String openid,
+                                                       @RequestParam(defaultValue = "1") int pageNum) {
+        return interviewRecordsService.getInterviewRecordsByPage(subject, openid, pageNum);
     }
 }

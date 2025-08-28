@@ -11,4 +11,5 @@ public interface AiConstants {
     String MP_REQUEST_TYPE_Q = "q";
     String MP_REQUEST_TYPE_A = "a";
     String MP_QUESTION_TYPE_CHOICE = "choice";
+    int PAGE_SIZE = 10;
 }
