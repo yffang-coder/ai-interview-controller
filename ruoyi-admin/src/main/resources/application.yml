@@ -140,3 +140,4 @@ ai:
   client_id: APIKey-20250825151643
   token: 
   token_url: https://qianfan.baidubce.com/v2/chat/completions
+  deepseek_token:

@@ -7,6 +7,15 @@ public class AiProperties {
     private String apiKey;
     private String token;
     private String token_url;
+    private String deepseek_token;
+
+    public String getDeepseek_token() {
+        return deepseek_token;
+    }
+
+    public void setDeepseek_token(String deepseek_token) {
+        this.deepseek_token = deepseek_token;
+    }
 
     public String getApiKey() {
         return apiKey;

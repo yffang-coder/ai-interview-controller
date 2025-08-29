@@ -8,6 +8,7 @@ import com.ruoyi.ai.service.IModelsService;
 import com.ruoyi.common.config.AiProperties;
 import com.ruoyi.common.config.MpProperties;
 import com.ruoyi.common.constant.AiConstants;
+import com.ruoyi.common.constant.AiModelsEnums;
 import com.ruoyi.common.core.redis.RedisCache;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,13 +67,14 @@ public class AiServiceImpl implements IAiService {
         requestBody.setModel(models.getName());
 
         HttpHeaders headers = new HttpHeaders();
+        String token = getToken(models);
         headers.add("Content-Type", "application/json");
-        headers.add("Authorization", "Bearer " + aiProperties.getToken());
+        headers.add("Authorization", "Bearer " + token);
 
         HttpEntity<AiRequestBody> request = new HttpEntity<>(requestBody, headers);
 
         //发送请求
-        AiResponseBody aiResponseBody = restTemplate.postForObject(aiProperties.getToken_url(),
+        AiResponseBody aiResponseBody = restTemplate.postForObject(models.getUrl(),
                 request, AiResponseBody.class);
 
         AiChatMessage chatMessage = new AiChatMessage();
@@ -93,6 +95,17 @@ public class AiServiceImpl implements IAiService {
         mpAnswer.setContent(chatMessage.getContent());
         mpAnswer.setType(AiConstants.MP_QUESTION_TYPE_CHOICE);
         return mpAnswer;
+    }
+
+    private String getToken(Models models) {
+        if(AiModelsEnums.DEEP_SEEK_CHAT.getModelName().equals(models.getName())){
+            return aiProperties.getDeepseek_token();
+        }else if(AiModelsEnums.BAIDU_ERNIE_3_5_128K.getModelName().equals(models.getName())){
+            return aiProperties.getToken();
+        }else if (AiModelsEnums.BAIDU_ERNIE_3_5_8K.getModelName().equals(models.getName())){
+            return aiProperties.getToken();
+        }
+        return aiProperties.getToken();
     }
 
     private void cacheMessage(List<AiChatMessage> aiChatMessageList, String sessionId) {
