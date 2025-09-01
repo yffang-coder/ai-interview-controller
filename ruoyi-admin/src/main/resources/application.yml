@@ -141,3 +141,6 @@ ai:
   token: 
   token_url: https://qianfan.baidubce.com/v2/chat/completions
   deepseek_token:
+  doubao_token:
+  qianwen_token:
+  tengxun_hunyuan_token:

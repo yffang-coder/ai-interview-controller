@@ -8,6 +8,36 @@ public class AiProperties {
     private String token;
     private String token_url;
     private String deepseek_token;
+    private String doubao_token;
+
+    private String qianwen_token;
+
+    private String tengxun_hunyuan_token;
+
+    public String getTengxun_hunyuan_token() {
+        return tengxun_hunyuan_token;
+    }
+
+    public void setTengxun_hunyuan_token(String tengxun_hunyuan_token) {
+        this.tengxun_hunyuan_token = tengxun_hunyuan_token;
+    }
+
+    public  String getQianwen_token() {
+        return qianwen_token;
+    }
+
+    public void setQianwen_token(String qianwen_token) {
+        this.qianwen_token = qianwen_token;
+    }
+    public String getDoubao_token() {
+        return doubao_token;
+    }
+
+    public void setDoubao_token(String doubao_token) {
+        this.doubao_token = doubao_token;
+    }
+
+
 
     public String getDeepseek_token() {
         return deepseek_token;

@@ -6,7 +6,6 @@ import com.ruoyi.ai.service.IAiService;
 import com.ruoyi.ai.service.IInterviewRecordsService;
 import com.ruoyi.ai.service.IModelsService;
 import com.ruoyi.common.config.AiProperties;
-import com.ruoyi.common.config.MpProperties;
 import com.ruoyi.common.constant.AiConstants;
 import com.ruoyi.common.constant.AiModelsEnums;
 import com.ruoyi.common.core.redis.RedisCache;
@@ -20,6 +19,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @EnableConfigurationProperties(AiProperties.class)
@@ -41,7 +41,7 @@ public class AiServiceImpl implements IAiService {
 
     @Override
     public MpAnswer chat(MpRequest mpRequest, String openid) {
-        Models models = getModels(mpRequest.getModelName());
+        Models models = getModels(Objects.requireNonNull(AiModelsEnums.getByUeName(mpRequest.getModelName())).getModelName());
         boolean isNew = false;
         //读取当前回话的历史聊天数据
         List<AiChatMessage> aiChatMessageList = loadChatMessage(mpRequest.getSessionId());
@@ -104,6 +104,12 @@ public class AiServiceImpl implements IAiService {
             return aiProperties.getToken();
         }else if (AiModelsEnums.BAIDU_ERNIE_3_5_8K.getModelName().equals(models.getName())){
             return aiProperties.getToken();
+        }else if (AiModelsEnums.DOUBAO_DOUBAO_SEED_1_6.getModelName().equals(models.getName())){
+            return aiProperties.getDoubao_token();
+        }else if (AiModelsEnums.ALIBABA_QWEN_PLUS.getModelName().equals(models.getName())){
+            return aiProperties.getQianwen_token();
+        }else if (AiModelsEnums.TENGXUN_HUNYUAN_TURBOS_LATEST.getModelName().equals(models.getName())){
+            return aiProperties.getTengxun_hunyuan_token();
         }
         return aiProperties.getToken();
     }
@@ -139,6 +145,7 @@ public class AiServiceImpl implements IAiService {
             LambdaQueryWrapper<Models> queryWrapper = new LambdaQueryWrapper<>();
             queryWrapper.eq(Models::getName, modelName);
             queryWrapper.eq(Models::getDelFlag, 1);
+            queryWrapper.eq(Models::getCharge, 0);
             cacheMapValue = iModelsService.getOne(queryWrapper);
             if (cacheMapValue == null) {
                 throw new RuntimeException("模型不存在");
