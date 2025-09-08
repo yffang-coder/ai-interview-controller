@@ -1,10 +1,7 @@
 package com.ruoyi.ai.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.ruoyi.ai.domain.AiChatMessage;
-import com.ruoyi.ai.domain.ChatRecords;
-import com.ruoyi.ai.domain.InterviewRecords;
-import com.ruoyi.ai.domain.MpRequest;
+import com.ruoyi.ai.domain.*;
 import com.ruoyi.ai.mapper.InterviewRecordsMapper;
 import com.ruoyi.ai.service.IInterviewRecordsService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -29,6 +26,10 @@ public class InterviewRecordsServiceImpl extends ServiceImpl<InterviewRecordsMap
 
     @Autowired
     InterviewRecordsMapper interviewRecordsMapper;
+
+    @Autowired
+    CategoryServiceImpl categoryService;
+
 
     @Override
     public List<AiChatMessage> loadChatMessageFromDB(String sessionId) {
@@ -61,11 +62,12 @@ public class InterviewRecordsServiceImpl extends ServiceImpl<InterviewRecordsMap
         saveBatch(records);
     }
 
-    public List<ChatRecords> getInterviewRecordsByPage(String subject, String openid, int pageNum) {
+    public List<ChatRecords> getInterviewRecordsByPage(String subject, String category, String openid,
+                                                       int pageNum, Long startTime, Long endTime) {
         //分页查询注意：
         //前端 需要的10条数据 是代表10个不同的sessionId 即 10道不同的题目
         List<InterviewRecords> interviewRecords = interviewRecordsMapper
-                .getInterviewRecordsByPage(subject, openid,
+                .getInterviewRecordsByPage(subject, openid, category, startTime, endTime,
                         (pageNum - 1) * AiConstants.PAGE_SIZE, AiConstants.PAGE_SIZE);
 
         List<ChatRecords> chatRecords = new ArrayList<>();
@@ -82,5 +84,10 @@ public class InterviewRecordsServiceImpl extends ServiceImpl<InterviewRecordsMap
             lastSessionId = interviewRecords1.getSessionId();
         }
         return chatRecords;
+    }
+
+    @Override
+    public List<MenuItem> getInterviewRecordsMenu() {
+        return categoryService.getMenus();
     }
 }

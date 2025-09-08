@@ -2,6 +2,7 @@ package com.ruoyi.ai.service;
 
 import com.ruoyi.ai.domain.Category;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.ruoyi.ai.domain.MenuItem;
 
 import java.util.List;
 
@@ -16,4 +17,6 @@ import java.util.List;
 public interface ICategoryService extends IService<Category> {
 
     List<Category> getAllCategoryList();
+
+    List<MenuItem> getMenus();
 }

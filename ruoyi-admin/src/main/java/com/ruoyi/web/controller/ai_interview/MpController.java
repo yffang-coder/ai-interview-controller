@@ -10,6 +10,7 @@ import com.ruoyi.common.enums.LimitType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
@@ -84,8 +85,17 @@ public class MpController extends BaseController {
 
     @GetMapping("/records")
     public List<ChatRecords> getInterviewRecordsByPage(@RequestParam String subject,
+                                                       @RequestParam String category,
                                                        @RequestHeader("openid") String openid,
-                                                       @RequestParam(defaultValue = "1") int pageNum) {
-        return interviewRecordsService.getInterviewRecordsByPage(subject, openid, pageNum);
+                                                       @RequestParam(defaultValue = "1") int pageNum,
+                                                       @RequestParam(name = "startTime", required = false) Long startTime,
+                                                       @RequestParam(name = "endTime", required = false) Long endTime) {
+        return interviewRecordsService.getInterviewRecordsByPage(subject, category, openid, pageNum, startTime, endTime);
     }
+
+    @GetMapping("/records/menu")
+    public List<MenuItem> getInterviewRecordsMenu() {
+        return interviewRecordsService.getInterviewRecordsMenu();
+    }
+
 }

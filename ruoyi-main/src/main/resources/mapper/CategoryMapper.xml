@@ -2,4 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.ai.mapper.CategoryMapper">
 
+    <!-- 定义 MenuItem 的 ResultMap -->
+    <resultMap id="MenuItemMap" type="com.ruoyi.ai.domain.MenuItem">
+        <result property="value" column="value"/>
+        <result property="text" column="text"/>
+        <!-- 映射子菜单 -->
+        <collection property="children" ofType="com.ruoyi.ai.domain.MenuItem">
+            <result property="value" column="child_value"/>
+            <result property="text" column="child_text"/>
+        </collection>
+    </resultMap>
+
+    <select id="getMenus" resultMap="MenuItemMap">
+        SELECT
+        p.name AS value,
+        p.text AS text,
+        c.value AS child_value,
+        c.text AS child_text
+        FROM ai_interview_category p
+        LEFT JOIN ai_interview_category_item c ON p.name = c.category
+        ORDER BY p.name, c.value
+    </select>
 </mapper>

@@ -17,6 +17,10 @@ import java.util.List;
  */
 public interface InterviewRecordsMapper extends BaseMapper<InterviewRecords> {
 
-    List<InterviewRecords> getInterviewRecordsByPage(@Param("subject") String subject, @Param("openid") String openid,
-                                                @Param("offset") int offset, @Param("limit") int limit);
+    List<InterviewRecords> getInterviewRecordsByPage(
+            @Param("subject") String subject,
+            @Param("openid") String openid,
+            @Param("category") String category,
+            @Param("startTime") Long startTime, @Param("endTime") Long endTime,
+            @Param("offset") int offset, @Param("limit") int limit);
 }
