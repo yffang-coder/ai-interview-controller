@@ -1,7 +1,5 @@
 <p align="center">
-	
-![微信图片_20250828172131](https://github.com/user-attachments/assets/4200e3eb-b14e-49c7-a1ce-93f159411152)
-
+  <img src="https://github.com/user-attachments/assets/4200e3eb-b14e-49c7-a1ce-93f159411152" style="width: 200px; height: 200px; border-radius: 50%; object-fit: cover;" alt="圆形图片">
 </p>
 <h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">ai-interview-controller v1.0.0</h1>
 <h4 align="center">基于SpringBoot+Vue前后端分离的Java快速开发框架</h4>
