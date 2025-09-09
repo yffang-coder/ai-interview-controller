@@ -9,7 +9,7 @@ public class CodeGenerator {
     public static void main(String[] args) {
 
         FastAutoGenerator.create("jdbc:mysql://10.186.37.153:3306/ai_interview",
-                        "hillstone", "hIllstoneUes4Ever")
+                        "", "")
                 .globalConfig(builder -> builder
                         .author("ruoyi")
                         .outputDir("D:\\aiback\\RuoYi-Vue\\ruoyi-main\\src\\main\\java")
@@ -30,6 +30,8 @@ public class CodeGenerator {
                                 "ai_interview_interview_records",
                                 "ai_interview_category",
                                 "ai_interview_models",
+                                "ai_interview_announcements",
+                                "ai_interview_satisfaction_survey",
                                 "wx_login")
                         .addTablePrefix("ai_interview_")
                         .entityBuilder()

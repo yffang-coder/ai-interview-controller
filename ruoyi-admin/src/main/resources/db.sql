@@ -86,4 +86,22 @@ CREATE TABLE `wx_login` (
   UNIQUE INDEX `openid` (`openid` ASC) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 156 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
+DROP TABLE IF EXISTS `ai_interview_satisfaction_survey`;
+CREATE TABLE ai_interview_satisfaction_survey (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  openid VARCHAR(64) NULL DEFAULT NULL COLLATE 'utf8mb4_unicode_ci',
+  rating INT NOT NULL, -- 1-5 分
+  feedback TEXT,
+  create_time TIMESTAMP NOT NULL DEFAULT current_timestamp()
+);
+
+DROP TABLE IF EXISTS `ai_interview_announcements`;
+CREATE TABLE ai_interview_announcements (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(255) NOT NULL,
+  content TEXT NOT NULL,
+  del_flag INT(11) NULL DEFAULT '1',
+  create_time TIMESTAMP NOT NULL DEFAULT current_timestamp()ai_interviewai_interview
+);
+
 SET FOREIGN_KEY_CHECKS = 1;

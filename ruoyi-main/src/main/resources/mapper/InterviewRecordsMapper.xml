@@ -19,18 +19,17 @@
             and create_time >= FROM_UNIXTIME(#{startTime})
         </if>
         <if test="endTime != null">
+<!--     XML 特殊字符解析
+         XML 解析器对 < 符号特别敏感，因为 < 是 XML 标签的开始标志。
+         如果直接在 XML 文件中使用 < 或 <=，解析器会误认为这是一个标签的开头，
+         从而导致解析错误（通常是 org.xml.sax.SAXParseException 或类似的异常）。
+         相比之下，> 和 >= 不容易被误认为是标签开头，因此 >= 通常不会触发相同的解析错误。
+        MyBatis XML 严格性
+        MyBatis 的 XML 映射文件遵循 XML 规范，< 必须转义为 &lt;，
+        而 <= 需要转义为 &lt;=。如果没有正确转义，XML 解析器会在 <= 处报错，
+        而 >= 可能在某些情况下被解析器忽略或容忍（尽管这不是标准行为，依赖于解析器实现）。       -->
             and create_time &lt;= FROM_UNIXTIME(#{endTime})
         </if>
-<!--        <if test="startTime != null">-->
-<!--            and create_time >= #{startTime}-->
-<!--        </if>-->
-<!--        <if test="endTime != null">-->
-<!--            &lt;!&ndash;     XML 特殊字符解析-->
-<!--            XML 解析器对 < 符号特别敏感，因为 < 是 XML 标签的开始标志。如果直接在 XML 文件中使用 < 或 <=，解析器会误认为这是一个标签的开头，从而导致解析错误（通常是 org.xml.sax.SAXParseException 或类似的异常）。相比之下，> 和 >= 不容易被误认为是标签开头，因此 >= 通常不会触发相同的解析错误。-->
-<!--            MyBatis XML 严格性-->
-<!--            MyBatis 的 XML 映射文件遵循 XML 规范，< 必须转义为 &lt;，而 <= 需要转义为 &lt;=。如果没有正确转义，XML 解析器会在 <= 处报错，而 >= 可能在某些情况下被解析器忽略或容忍（尽管这不是标准行为，依赖于解析器实现）。       &ndash;&gt;-->
-<!--            and create_time &lt;= #{endTime}-->
-<!--        </if>-->
         AND openid = #{openid} LIMIT #{offset}
         , #{limit}) as t1)
         AND role = 'assistant'

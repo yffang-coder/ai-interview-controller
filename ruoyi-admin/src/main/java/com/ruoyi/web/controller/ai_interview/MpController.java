@@ -2,6 +2,7 @@ package com.ruoyi.web.controller.ai_interview;
 
 import com.ruoyi.ai.domain.*;
 import com.ruoyi.ai.service.*;
+import com.ruoyi.ai.service.impl.AnnouncementsServiceImpl;
 import com.ruoyi.ai.service.impl.InterviewRecordsServiceImpl;
 import com.ruoyi.common.annotation.RateLimiter;
 import com.ruoyi.common.core.controller.BaseController;
@@ -98,4 +99,24 @@ public class MpController extends BaseController {
         return interviewRecordsService.getInterviewRecordsMenu();
     }
 
+    @Autowired
+    private AnnouncementsServiceImpl announcementsService;
+
+    @GetMapping("/announcements")
+    public List<Announcements> getAllAnnouncements(){
+        return announcementsService.getAllAnnouncements();
+    }
+
+    @Autowired
+    private ISatisfactionSurveyService satisfactionSurveyService;
+    @PostMapping("/satisfaction")
+    public AjaxResult submit(@RequestBody SatisfactionDto satisfactionDto, @RequestHeader("openid") String openid) {
+        satisfactionSurveyService.submit(satisfactionDto, openid);
+        return AjaxResult.success();
+    }
+
+    @GetMapping("/satisfaction")
+    public List<SatisfactionSurvey> getAllSatisfactionSurvey() {
+        return satisfactionSurveyService.getAllSatisfactionSurvey();
+    }
 }
