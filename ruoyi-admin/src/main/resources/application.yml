@@ -100,6 +100,12 @@ token:
   # 令牌有效期（默认30分钟）
   expireTime: 30
 
+minio:
+  endpoint: http://127.0.0.1:9000
+  accessKey: minioadmin
+  secretKey: minioadmin
+  bucketName: user-info
+
 # MyBatis配置
 mybatis:
   # 搜索指定包别名
@@ -144,3 +150,7 @@ ai:
   doubao_token:
   qianwen_token:
   tengxun_hunyuan_token:
+
+upload:
+  path: D:/ruoyi/uploadPath
+  url-prefix:

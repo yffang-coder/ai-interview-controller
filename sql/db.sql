@@ -103,5 +103,14 @@ CREATE TABLE ai_interview_announcements (
   del_flag INT(11) NULL DEFAULT '1',
   create_time TIMESTAMP NOT NULL DEFAULT current_timestamp()ai_interviewai_interview
 );
+DROP TABLE IF EXISTS `ai_interview_userinfo`;
+CREATE TABLE ai_interview_userinfo (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL UNIQUE,
+    avatar_url VARCHAR(255),
+    del_flag INT(11) NULL DEFAULT '1',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
 
 SET FOREIGN_KEY_CHECKS = 1;

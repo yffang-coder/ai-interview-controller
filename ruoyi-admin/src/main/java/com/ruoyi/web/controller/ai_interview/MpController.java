@@ -8,8 +8,10 @@ import com.ruoyi.common.annotation.RateLimiter;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.enums.LimitType;
+import com.ruoyi.common.utils.UserNicknameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -119,4 +121,29 @@ public class MpController extends BaseController {
     public List<SatisfactionSurvey> getAllSatisfactionSurvey() {
         return satisfactionSurveyService.getAllSatisfactionSurvey();
     }
+
+    @Autowired
+    private IUserinfoService userinfoService;
+
+    // 获取用户信息
+    @GetMapping("/userinfo")
+    public Userinfo getProfile(@RequestHeader("openid") String openid) {
+        return userinfoService.getProfile(openid);
+    }
+
+    // 更新用户信息（用户名和头像）
+    @PostMapping(value = "/userinfo")
+    public AjaxResult updateProfile(
+            @RequestHeader("openid") String openid,
+            @RequestParam(value = "avatar", required = false) MultipartFile avatar,
+            @RequestParam("username") String username) {
+        try {
+            Userinfo userinfo = userinfoService.updateUserProfile(openid, username, avatar);
+            return AjaxResult.success(userinfo);
+        }  catch (Exception e) {
+            logger.error("更新用户信息失败：{}", e.getMessage());
+            throw new RuntimeException("更新用户信息失败");
+        }
+    }
+
 }

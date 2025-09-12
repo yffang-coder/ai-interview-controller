@@ -9,7 +9,7 @@ public class CodeGenerator {
     public static void main(String[] args) {
 
         FastAutoGenerator.create("jdbc:mysql://10.186.37.153:3306/ai_interview",
-                        "", "")
+                        "hillstone", "hIllstoneUes4Ever")
                 .globalConfig(builder -> builder
                         .author("ruoyi")
                         .outputDir("D:\\aiback\\RuoYi-Vue\\ruoyi-main\\src\\main\\java")
@@ -24,6 +24,7 @@ public class CodeGenerator {
                 )
                 .strategyConfig(builder -> builder
                         .addInclude(
+                                "ai_interview_userinfo",
                                 "ai_interview_user",
                                 "ai_interview_banner",
                                 "ai_interview_category_item",
