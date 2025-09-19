@@ -17,4 +17,9 @@ public interface IBannerService extends IService<Banner> {
 
     List<Banner> getAllBannerList();
 
+    List<Banner> selectBannerList(Banner banner);
+
+    boolean checkTitleExsit(Banner banner);
+
+    boolean deleteBanner(Long[] bannerids);
 }
