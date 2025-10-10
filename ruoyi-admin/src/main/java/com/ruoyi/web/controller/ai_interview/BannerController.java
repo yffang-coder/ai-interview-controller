@@ -52,8 +52,8 @@ public class BannerController extends BaseController {
     @PreAuthorize("@ss.hasPermi('ai:banner:remove')")
     @Log(title = "banner管理", businessType = BusinessType.DELETE)
     @DeleteMapping("/{bannerIds}")
-    public AjaxResult remove(@PathVariable Long[] bannerids) {
-        return toAjax(bannerService.deleteBanner(bannerids));
+    public AjaxResult remove(@PathVariable Long[] bannerIds) {
+        return toAjax(bannerService.deleteBanner(bannerIds));
     }
 
 
@@ -65,5 +65,14 @@ public class BannerController extends BaseController {
             return error("编辑banner'" + banner.getTitle() + "'失败，名称已存在");
         }
         return toAjax(bannerService.updateById(banner));
+    }
+
+    /**
+     * 根据角色编号获取详细信息
+     */
+    @PreAuthorize("@ss.hasPermi('ai:banner:search')")
+    @GetMapping(value = "/{bannerId}")
+    public AjaxResult getInfo(@PathVariable Integer bannerId) {
+        return success(bannerService.getById(bannerId));
     }
 }

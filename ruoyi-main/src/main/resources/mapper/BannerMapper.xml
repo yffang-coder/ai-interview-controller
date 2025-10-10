@@ -4,6 +4,6 @@
 
     <select id="selectBannerList" resultType="com.ruoyi.ai.domain.Banner">
         select * from ai_interview_banner where del_flag = 1
-        <if test="title != null and title != ''">And title = #{title}</if>
+        <if test="title != null and title != ''">And title like concat('%', #{title}, '%')</if>
     </select>
 </mapper>
