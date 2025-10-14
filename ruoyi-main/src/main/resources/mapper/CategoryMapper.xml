@@ -23,4 +23,15 @@
         LEFT JOIN ai_interview_category_item c ON p.name = c.category
         ORDER BY p.name, c.value
     </select>
+
+    <select id="selectCategoryList" resultType="com.ruoyi.ai.domain.Category">
+        select * from ai_interview_category
+        where del_flag = 1
+        <if test="name != null and name != ''">
+            and name like concat('%', #{name}, '%')
+        </if>
+        <if test="text != null and text != ''">
+            and text like concat('%', #{text}, '%')
+        </if>
+    </select>
 </mapper>

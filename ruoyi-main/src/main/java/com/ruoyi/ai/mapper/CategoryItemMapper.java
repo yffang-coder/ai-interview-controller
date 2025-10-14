@@ -3,6 +3,8 @@ package com.ruoyi.ai.mapper;
 import com.ruoyi.ai.domain.CategoryItem;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+import java.util.List;
+
 /**
  * <p>
  *  Mapper 接口
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface CategoryItemMapper extends BaseMapper<CategoryItem> {
 
+    List<CategoryItem> selectCategoryItemList(CategoryItem category);
 }

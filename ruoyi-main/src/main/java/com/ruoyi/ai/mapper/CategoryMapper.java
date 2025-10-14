@@ -17,4 +17,6 @@ import java.util.List;
 public interface CategoryMapper extends BaseMapper<Category> {
 
     List<MenuItem> getMenus();
+
+    List<Category> selectCategoryList(Category category);
 }

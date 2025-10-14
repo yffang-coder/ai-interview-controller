@@ -1,6 +1,8 @@
 package com.ruoyi.ai.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.ruoyi.ai.domain.Banner;
 import com.ruoyi.ai.domain.Category;
 import com.ruoyi.ai.domain.MenuItem;
 import com.ruoyi.ai.mapper.CategoryMapper;
@@ -56,5 +58,42 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
 
                     return item;
                 }).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Category> selectCategoryList(Category category) {
+        return categoryMapper.selectCategoryList(category);
+    }
+
+    @Override
+    public boolean checkNameExsit(Category category) {
+        LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
+        if(category.getId() != null){
+            //更新操作 排除自身
+            queryWrapper.ne(Category::getId, category.getId());
+        }
+        queryWrapper.eq(Category::getName, category.getName());
+        queryWrapper.eq(Category::getDelFlag, 1);
+        return exists(queryWrapper);
+    }
+
+    @Override
+    public boolean deleteCategory(Long[] categoryIds) {
+        LambdaUpdateWrapper<Category> updateWrapper = new LambdaUpdateWrapper<>();
+        updateWrapper.in(Category::getId, categoryIds);
+        updateWrapper.set(Category::getDelFlag, 0);
+        return update(updateWrapper);
+    }
+
+    @Override
+    public List<String> getAllCategories() {
+        LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.select(Category::getName);
+        queryWrapper.eq(Category::getDelFlag, 1);
+        queryWrapper.isNotNull(Category::getName);
+        List<Category> list = list(queryWrapper);
+        return list.stream()
+                .filter(category -> category.getName() != null && !category.getName().trim().isEmpty())
+                .map(Category::getName).collect(Collectors.toList());
     }
 }

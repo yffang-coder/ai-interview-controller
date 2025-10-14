@@ -1,5 +1,6 @@
 package com.ruoyi.ai.service;
 
+import com.ruoyi.ai.domain.Banner;
 import com.ruoyi.ai.domain.Category;
 import com.ruoyi.ai.domain.CategoryItem;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -18,4 +19,10 @@ public interface ICategoryItemService extends IService<CategoryItem> {
 
 
     List<CategoryItem> getCategoryItemList(String category);
+
+    List<CategoryItem> selectCategoryItemList(CategoryItem category);
+
+    boolean checkNameExsit(CategoryItem category);
+
+    Boolean deleteCategoryItem(Long[] categoryIds);
 }

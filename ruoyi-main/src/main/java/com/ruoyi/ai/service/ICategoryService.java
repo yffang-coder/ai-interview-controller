@@ -19,4 +19,13 @@ public interface ICategoryService extends IService<Category> {
     List<Category> getAllCategoryList();
 
     List<MenuItem> getMenus();
+
+    List<Category> selectCategoryList(Category category);
+
+    boolean checkNameExsit(Category category);
+
+    boolean deleteCategory(Long[] categoryIds);
+
+    List<String> getAllCategories();
+
 }
