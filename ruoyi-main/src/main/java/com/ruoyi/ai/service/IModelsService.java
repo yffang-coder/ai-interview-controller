@@ -16,4 +16,10 @@ import java.util.List;
 public interface IModelsService extends IService<Models> {
 
     List<Models> getAllModelList();
+
+    List<Models> selectModelsList(Models models);
+
+    boolean checkNameExsit(Models models);
+
+    boolean deleteModels(Long[] modelsIds);
 }

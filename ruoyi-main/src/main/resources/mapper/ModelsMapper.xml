@@ -2,4 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.ai.mapper.ModelsMapper">
 
+    <select id="selectModelsList" resultType="com.ruoyi.ai.domain.Models">
+        select id, name, url, question_prompt, answer_prompt, role, create_time, update_time, del_flag, charge, multiple, order_num
+        from ai_interview_models
+        where del_flag = 1
+        <if test="name != null and name != ''">
+            and name like concat('%', #{name}, '%')
+        </if>
+    </select>
 </mapper>
