@@ -69,7 +69,7 @@ spring:
   data:
     redis:
       # 地址
-      host: 10.186.37.153
+      host: 127.0.0.1
       # 端口，默认为6379
       port: 6379
       # 数据库索引
@@ -101,9 +101,10 @@ token:
   expireTime: 30
 
 minio:
-  endpoint: http://127.0.0.1:9000
+  endpoint: http://127.0.0.1:19000
   accessKey: minioadmin
   secretKey: minioadmin
+  publicEndpoint: https://yffxdq.cloud:19000  # 公网地址
   bucketName: user-info
 
 # MyBatis配置

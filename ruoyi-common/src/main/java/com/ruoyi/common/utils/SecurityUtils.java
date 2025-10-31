@@ -72,6 +72,9 @@ public class SecurityUtils {
         return SecurityContextHolder.getContext().getAuthentication();
     }
 
+    public static void main(String[] args) {
+        System.out.println(encryptPassword(""));
+    }
     /**
      * 生成BCryptPasswordEncoder密码
      *

@@ -28,6 +28,9 @@ public class MinioUtil {
     @Value("${minio.endpoint}")
     private String endpoint;
 
+    @Value("${minio.publicEndpoint}")
+    private String publicEndpoint;
+
     public MinioUtil(MinioClient minioClient) {
         this.minioClient = minioClient;
     }
@@ -69,7 +72,7 @@ public class MinioUtil {
             }
 
 
-            return String.format("%s/%s/%s", endpoint, bucketName, objectName);
+            return String.format("%s/%s/%s", publicEndpoint, bucketName, objectName);
         } catch (Exception e) {
             throw new RuntimeException("上传文件到 MinIO 失败: " + e.getMessage(), e);
         }
@@ -136,5 +139,28 @@ public class MinioUtil {
         }
     }
 
+    /**
+     * 从 URL 中提取文件名（包含扩展名）
+     */
+    public String extractFileNameFromUrl(String url) {
+        if (url == null || url.isEmpty()) {
+            return "";
+        }
 
+        // 去掉查询参数（如 ?xxx）
+        String cleanedUrl = url.split("\\?")[0];
+
+        // 找到最后一个 '/' 的位置
+        int lastSlashIndex = cleanedUrl.lastIndexOf('/');
+
+        if (lastSlashIndex == -1 || lastSlashIndex == cleanedUrl.length() - 1) {
+            return ""; // 没有找到有效文件名
+        }
+
+        // 提取 '/' 之后的字符串
+        return cleanedUrl.substring(lastSlashIndex + 1);
+    }
 }
+
+
+
