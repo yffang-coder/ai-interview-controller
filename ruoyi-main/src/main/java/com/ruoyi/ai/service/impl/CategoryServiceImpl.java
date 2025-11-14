@@ -8,8 +8,10 @@ import com.ruoyi.ai.domain.MenuItem;
 import com.ruoyi.ai.mapper.CategoryMapper;
 import com.ruoyi.ai.service.ICategoryService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ruoyi.common.utils.MinioUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +30,9 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
 
     @Autowired
     private CategoryMapper categoryMapper;
+
+    @Autowired
+    private MinioUtil minioUtil;
 
     @Override
     public List<Category> getAllCategoryList() {
@@ -79,6 +84,16 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
 
     @Override
     public boolean deleteCategory(Long[] categoryIds) {
+        LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.in(Category::getId, categoryIds);
+        queryWrapper.select(Category::getSrc);
+        List<Category> categoryList = list(queryWrapper);
+        if (CollectionUtils.isEmpty(categoryList)){
+            return true;
+        }
+        List<String> urls = categoryList.stream().map(Category::getSrc).toList();
+        urls.forEach(minioUtil::deleteFile);
+
         LambdaUpdateWrapper<Category> updateWrapper = new LambdaUpdateWrapper<>();
         updateWrapper.in(Category::getId, categoryIds);
         updateWrapper.set(Category::getDelFlag, 0);

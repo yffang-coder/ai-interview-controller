@@ -104,7 +104,7 @@ minio:
   endpoint: http://127.0.0.1:19000
   accessKey: minioadmin
   secretKey: minioadmin
-  publicEndpoint: https://yffxdq.cloud:19000  # 公网地址
+  publicEndpoint: https://yffxdq.cloud/pic  # 公网地址
   bucketName: user-info
 
 # MyBatis配置
@@ -138,7 +138,7 @@ xss:
   # 匹配链接
   urlPatterns: /system/*,/monitor/*,/tool/*
 mp:
-  appid: wxc7a1ea45ccc7bcab
+  appid: wxf8bc1bcdc1496381
   secret:
   grant_type: authorization_code
   token_url: https://api.weixin.qq.com/sns/jscode2session?appid={appid}&secret={secret}&js_code={js_code}&grant_type=authorization_code

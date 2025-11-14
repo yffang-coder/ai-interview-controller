@@ -24,7 +24,7 @@ public class MPAuthenticationTokenFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String requestURI = request.getRequestURI();
         if (requestURI.contains("/mp") && !requestURI.contains("/mp/login")) {
-            String authToken = request.getHeader("mp_token");
+            String authToken = request.getHeader("mp-token");
             WxLogin cacheObject = redisCache.getCacheObject(CacheConstants.WEXIN_LOGIN_KEY + authToken);
             if (cacheObject == null) {
                 response.setContentType("application/json;charset=utf-8");

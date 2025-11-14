@@ -42,6 +42,7 @@ public class CategoryController extends BaseController {
         //PageHelper.startPage(pageNum, pageSize, orderBy).setReasonable(reasonable);
         //开启分页拦截
         startPage();
+        // 管理端 是返回所有数据；小程序 返回需要展示enable的数据
         List<Category> list = categoryService.selectCategoryList(category);
         //将数据封装为分页数据结构
         return getDataTable(list);

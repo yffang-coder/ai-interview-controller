@@ -1,5 +1,7 @@
 package com.ruoyi.common.utils;
 
+import com.ruoyi.common.utils.file.ImageCompressUtils;
+
 import io.minio.*;
 import io.minio.errors.MinioException;
 import io.minio.http.Method;
@@ -50,8 +52,11 @@ public class MinioUtil {
     /**
      * 上传文件
      */
-    public String uploadFile(MultipartFile file, String objectName) {
+    public String uploadFile(MultipartFile compressedFile, String objectName) {
         try {
+//         // 关键：上传前压缩
+           //MultipartFile compressedFile = ImageCompressUtils.compress(file);
+
             // 如果桶不存在就创建
             boolean found = minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucketName).build());
             if (!found) {
@@ -60,13 +65,13 @@ public class MinioUtil {
             }
 
             // 上传文件
-            try (InputStream inputStream = file.getInputStream()) {
+            try (InputStream inputStream = compressedFile.getInputStream()) {
                 minioClient.putObject(
                         PutObjectArgs.builder()
                                 .bucket(bucketName)
                                 .object(objectName)
-                                .stream(inputStream, file.getSize(), -1)
-                                .contentType(file.getContentType())
+                                .stream(inputStream, compressedFile.getSize(), -1)
+                                .contentType(compressedFile.getContentType())
                                 .build()
                 );
             }
@@ -135,7 +140,7 @@ public class MinioUtil {
                     .object(objectName)
                     .build());
         } catch (Exception e) {
-            log.error("删除文件失败: {}", objectName);
+            log.error("删除文件 {} 失败", objectName);
         }
     }
 
