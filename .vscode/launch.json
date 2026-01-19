@@ -1,0 +1,54 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "CodeGenerator",
+            "request": "launch",
+            "mainClass": "com.ruoyi.CodeGenerator",
+            "projectName": "ruoyi-admin"
+        },
+        {
+            "type": "java",
+            "name": "RuoYiApplication",
+            "request": "launch",
+            "mainClass": "com.ruoyi.RuoYiApplication",
+            "args": [
+        "--mp.secret=4c2f01c396aeee128bd0cb4105425a77",
+        "--spring.datasource.druid.master.username=hillstone",
+        "--spring.datasource.druid.master.password=hIllstoneUes4Ever",
+        "--spring.data.redis.password=Hillstone4Ever",
+        "--ai.token=bce-v3/ALTAK-XQIMPaC7GN4mheYLZjkjQ/7e119988ae1d7f5de62564b02c9468d78909dead",
+        "--ai.deepseek_token=sk-f5bab9e3336d4563873ca783808cc488",
+        "--ai.doubao_token=798ebeb6-c8ca-453c-b929-4b755bc5cccb",
+        "--ai.qianwen_token=sk-3503ac71a5954008ab4bdf2bd0d466a7",
+        "--ai.tengxun_hunyuan_token=sk-eLPnPYZQy5zoRhbJP7kbvGUyHHm3rUuR2fgqwd7lE0QGXgnn",
+        "--spring.profiles.active=dev"
+        ],
+            "projectName": "ruoyi-admin"
+        },
+        {
+            "type": "java",
+            "name": "SecurityUtils",
+            "request": "launch",
+            "mainClass": "com.ruoyi.common.utils.SecurityUtils",
+            "projectName": "ruoyi-common"
+        },
+        {
+            "type": "java",
+            "name": "EscapeUtil",
+            "request": "launch",
+            "mainClass": "com.ruoyi.common.utils.html.EscapeUtil",
+            "projectName": "ruoyi-common"
+        }
+    ]
+}

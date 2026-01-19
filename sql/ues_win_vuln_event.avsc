@@ -1,0 +1,159 @@
+{
+  "type": "record",
+  "name": "PatchDetailMap",
+  "namespace": "",
+  "doc": "Windows漏洞补丁详情Schema，定义日期2025/09/26",
+  "fields": [
+    {
+      "name": "agentId",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "终端ID"
+    },
+    {
+      "name": "terminalName",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "终端名称"
+    },
+    {
+      "name": "agentIp",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "终端IP地址"
+    },
+    {
+      "name": "scanTime",
+      "type": ["null", "long"],
+      "default": null,
+      "doc": "漏洞扫描的时间戳"
+    },
+    {
+      "name": "patchDetailArray",
+      "type": [
+        "null",
+        {
+          "type": "array",
+          "items": {
+            "type": "record",
+            "name": "PatchDetail",
+            "doc": "Windows漏洞补丁的详细信息",
+            "fields": [
+              {
+                "name": "id",
+                "type": ["null", "int"],
+                "default": null,
+                "doc": "唯一标识符，自动生成"
+              },
+              {
+                "name": "agentId",
+                "type": ["null", "string"],
+                "default": null,
+                "doc": "终端ID"
+              },
+              {
+                "name": "kbId",
+                "type": ["null", "string"],
+                "default": null,
+                "doc": "补丁的知识库标识符"
+              },
+              {
+                "name": "severity",
+                "type": ["null", "string"],
+                "default": null,
+                "doc": "漏洞的严重性级别"
+              },
+              {
+                "name": "type",
+                "type": ["null", "string"],
+                "default": null,
+                "doc": "补丁类型"
+              },
+              {
+                "name": "title",
+                "type": ["null", "string"],
+                "default": null,
+                "doc": "补丁的标题"
+              },
+              {
+                "name": "titleEn",
+                "type": ["null", "string"],
+                "default": null,
+                "doc": "补丁的英文标题"
+              },
+              {
+                "name": "description",
+                "type": ["null", "string"],
+                "default": null,
+                "doc": "补丁描述"
+              },
+              {
+                "name": "descriptionEn",
+                "type": ["null", "string"],
+                "default": null,
+                "doc": "补丁英文描述"
+              },
+              {
+                "name": "updateTime",
+                "type": ["null", "string"],
+                "default": null,
+                "doc": "补丁的最后发布时间"
+              },
+              {
+                "name": "size",
+                "type": ["null", "string"],
+                "default": null,
+                "doc": "补丁大小"
+              },
+              {
+                "name": "introUrl",
+                "type": ["null", "string"],
+                "default": null,
+                "doc": "关于补丁URL"
+              },
+              {
+                "name": "patchStatus",
+                "type": {
+                  "type": "enum",
+                  "name": "FixIgnoreStatus",
+                  "symbols": [
+                    "NOT_FIXED",
+                    "FIXING",
+                    "FIXED",
+                    "FIX_STOPED",
+                    "FIX_FAILED",
+                    "FIX_CONFLICT",
+                    "FIX_TIMEOUT",
+                    "IGNORING",
+                    "IGNORED",
+                    "IGNORE_FAILED",
+                    "IGNORE_TIMEOUT",
+                    "CANCEL_IGNORING",
+                    "CANCEL_IGNORE_FAILED",
+                    "CANCEL_IGNORE_TIMEOUT",
+                    "UNINSTALLING",
+                    "UNINSTALL_FAILED",
+                    "UNINSTALL_CONFLICT",
+                    "UNINSTALL_TIMEOUT",
+                    "LACK_OF_CAPACITY"
+                  ],
+                  "doc": "Patch status: NOT_FIXED=未修复 (1), FIXING=修复中 (2), FIXED=已修复 (3), FIX_STOPED=修复停止 (4), FIX_FAILED=修复失败 (5), FIX_CONFLICT=修复冲突 (6), FIX_TIMEOUT=修复超时 (7), IGNORING=忽略中 (8), IGNORED=已忽略 (9), IGNORE_FAILED=忽略失败 (10), IGNORE_TIMEOUT=忽略超时 (11), CANCEL_IGNORING=取消忽略中 (12), CANCEL_IGNORE_FAILED=取消忽略失败 (13), CANCEL_IGNORE_TIMEOUT=取消忽略超时 (14), UNINSTALLING=卸载中 (15), UNINSTALL_FAILED=卸载失败 (16), UNINSTALL_CONFLICT=卸载冲突 (17), UNINSTALL_TIMEOUT=卸载超时 (18), LACK_OF_CAPACITY=磁盘不足 (19)"
+                },
+                "doc": "补丁处理状态"
+              },
+              {
+                "name": "lastActiveTime",
+                "type": ["null", "long"],
+                "default": null,
+                "doc": "agent最后活跃时间的时间戳"
+              }
+            ]
+          },
+          "default": []
+        }
+      ],
+      "default": null,
+      "doc": "关联的补丁详情记录数组"
+    }
+  ]
+}
