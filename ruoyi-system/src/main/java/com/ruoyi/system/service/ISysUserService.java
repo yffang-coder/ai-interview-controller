@@ -17,6 +17,13 @@ public interface ISysUserService {
      * @return 用户信息集合信息
      */
     public List<SysUser> selectUserList(SysUser user);
+    
+    /**
+     * 查询所有用户列表
+     *
+     * @return 用户信息集合信息
+     */
+    public List<SysUser> selectAllUsers();
 
     /**
      * 根据条件分页查询已分配用户角色列表

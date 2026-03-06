@@ -7,6 +7,7 @@ import com.ruoyi.ai.service.impl.InterviewRecordsServiceImpl;
 import com.ruoyi.common.annotation.RateLimiter;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
+import com.ruoyi.common.core.page.TableDataInfo;
 import com.ruoyi.common.enums.LimitType;
 import com.ruoyi.common.utils.UserNicknameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,21 @@ public class MpController extends BaseController {
 
     @Autowired
     InterviewRecordsServiceImpl interviewRecordsService;
+
+    @Autowired
+    private IAlarmService alarmService;
+
+     /**
+     * 查询告警列表
+     */
+     
+     @GetMapping("/alarm/list")
+     public TableDataInfo list(Alarm alarm)
+     {
+         startPage();
+         List<Alarm> list = alarmService.selectAlarmList(alarm);
+         return getDataTable(list);
+     }
 
     @RequestMapping("/banners")
     public List<Banner> getAllBannerList() {

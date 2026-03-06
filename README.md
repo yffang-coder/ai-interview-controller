@@ -5,49 +5,89 @@
 <h4 align="center">基于SpringBoot+Vue前后端分离的Java快速开发框架</h4>
 
 
-## 平台简介
-ai面试官后端管理系统
+## 项目简介
+ai 面试官后端管理系统，基于若依快速开发平台进行业务扩展，包含系统管理、AI 面试业务、日志审计、任务调度、代码生成等能力。
 
-base 采用 若依快速开发平台 --->>> 若依是一套全部开源的快速开发平台，毫无保留给个人及企业免费使用。
+## 技术栈
+- Java 17 / Spring Boot 3.3.1 / Spring Security 6.3.1
+- MyBatis / MyBatis-Plus / PageHelper
+- MySQL / Druid
+- Redis / JWT
+- Swagger(Springfox 3.0, OpenAPI 3)
+- WebSocket(STOMP)
+- MinIO
 
+## 模块结构
+- ruoyi-admin：启动模块与 Web 层接口
+- ruoyi-main：AI 面试业务域模型、服务与 Mapper
+- ruoyi-framework：安全、拦截器、WebSocket、缓存、数据源等基础能力
+- ruoyi-system：系统管理核心域（用户、角色、菜单、日志等）
+- ruoyi-quartz：定时任务调度
+- ruoyi-generator：代码生成器
+- ruoyi-common：通用工具与基础组件
+- sql：数据库初始化脚本
 
-* 前端采用Vue、Element UI。
-* 后端采用Spring Boot、Spring Security、Redis & Jwt。
-* 权限认证使用Jwt，支持多终端认证系统。
-* 支持加载动态权限菜单，多方式轻松权限控制。
-* 高效率开发，使用代码生成器可以一键生成前后端代码。
-*
+## 业务功能
+### AI 面试业务
+- 模型管理、分类与分类项、轮播与公告
+- 面试记录、满意度调查
+- 聊天与消息推送（HTTP + WebSocket）
+- 告警与通知
+- 微信登录与小程序相关能力
 
+### 系统管理（若依基础能力）
+1. 用户管理：系统用户配置与权限分配
+2. 部门管理：组织架构与数据权限
+3. 岗位管理：用户岗位与职责
+4. 菜单管理：路由与权限按钮
+5. 角色管理：角色权限与数据范围
+6. 字典管理：通用数据维护
+7. 参数管理：运行时动态配置
+8. 通知公告：信息发布与维护
+9. 操作日志/登录日志：安全审计
+10. 在线用户：当前会话监控
+11. 定时任务：任务调度与日志
+12. 代码生成：CRUD 模块生成
+13. 系统接口：Swagger 文档
+14. 服务/缓存/连接池监控
 
-## 内置功能
+## 运行环境
+- JDK 17
+- Maven 3.8+
+- MySQL 8.x
+- Redis 6.x+
+- MinIO（如需文件存储能力）
 
-1. 用户管理：用户是系统操作者，该功能主要完成系统用户配置。
-2. ai 管理：
-3. 部门管理：配置系统组织机构（公司、部门、小组），树结构展现支持数据权限。
-4. 岗位管理：配置系统用户所属担任职务。
-5. 菜单管理：配置系统菜单，操作权限，按钮权限标识等。
-6. 角色管理：角色菜单权限分配、设置角色按机构进行数据范围权限划分。
-7. 字典管理：对系统中经常使用的一些较为固定的数据进行维护。
-8. 参数管理：对系统动态配置常用参数。
-9. 通知公告：系统通知公告信息发布维护。
-10. 操作日志：系统正常操作日志记录和查询；系统异常信息日志记录和查询。
-11. 登录日志：系统登录日志记录查询包含登录异常。
-12. 在线用户：当前系统中活跃用户状态监控。
-13. 定时任务：在线（添加、修改、删除)任务调度包含执行结果日志。
-14. 代码生成：前后端代码的生成（java、html、xml、sql）支持CRUD下载 。
-15. 系统接口：根据业务代码自动生成相关的api接口文档。
-16. 服务监控：监视当前系统CPU、内存、磁盘、堆栈等相关信息。
-17. 缓存监控：对系统的缓存信息查询，命令统计等。
-18. 在线构建器：拖动表单元素生成相应的HTML代码。
-19. 连接池监视：监视当前系统数据库连接池状态，可进行分析SQL找出系统性能瓶颈。
+## 快速启动
+1. 初始化数据库  
+   - 执行 [ry_20250522.sql](./sql/ry_20250522.sql)  
+   - 可选执行初始化脚本：
+     - [category_item_init.sql](./ruoyi-admin/src/main/resources/category_item_init.sql)
+     - [chat_init.sql](./ruoyi-main/src/main/resources/mapper/ai/chat_init.sql)
+2. 修改配置  
+   - 数据库与连接池：[application-druid.yml](./ruoyi-admin/src/main/resources/application-druid.yml)  
+   - Redis、MinIO、AI 与微信配置：[application.yml](./ruoyi-admin/src/main/resources/application.yml)  
+3. 启动服务  
+   - IDE 运行 [RuoYiApplication](./ruoyi-admin/src/main/java/com/ruoyi/RuoYiApplication.java)  
+   - 或命令行：
+     - `mvn -pl ruoyi-admin -am spring-boot:run`
+     - `mvn clean package -DskipTests` 后执行 `java -jar ruoyi-admin/target/ruoyi-admin.jar`
+4. 访问服务  
+   - 服务地址：http://localhost:8080
+
+## 接口文档与监控
+- Swagger（默认开启）：http://localhost:8080/dev-api/swagger-ui/index.html
+- Swagger 前缀配置：`swagger.pathMapping=/dev-api`
+- Druid 监控：/druid（账号 ruoyi / 密码 123456，见数据源配置）
+
+## WebSocket
+- STOMP 端点：/ws（支持 SockJS）
+- 告警消息：/app/alarm → /topic/alarm
+- 聊天推送：/user/queue/chat
 
 ## 在线体验
 
-- admin/admin123
-- 陆陆续续收到一些打赏，为了更好的体验已用于演示服务器升级。谢谢各位小伙伴。
-
 演示地址：http://vue.ruoyi.vip  
-文档地址：http://doc.ruoyi.vip
 
 ## 演示图
 

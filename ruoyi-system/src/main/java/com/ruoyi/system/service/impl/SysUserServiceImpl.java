@@ -76,6 +76,17 @@ public class SysUserServiceImpl implements ISysUserService {
     public List<SysUser> selectUserList(SysUser user) {
         return userMapper.selectUserList(user);
     }
+    
+    /**
+     * 查询所有用户列表
+     *
+     * @return 用户信息集合信息
+     */
+    @Override
+//    @DataScope(deptAlias = "d", userAlias = "u")
+    public List<SysUser> selectAllUsers() {
+        return userMapper.selectAllUsers();
+    }
 
     /**
      * 根据条件分页查询已分配用户角色列表

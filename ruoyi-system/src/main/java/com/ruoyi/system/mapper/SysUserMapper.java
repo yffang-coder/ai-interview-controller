@@ -18,6 +18,13 @@ public interface SysUserMapper {
      * @return 用户信息集合信息
      */
     public List<SysUser> selectUserList(SysUser sysUser);
+    
+    /**
+     * 查询所有用户列表
+     *
+     * @return 用户信息集合信息
+     */
+    public List<SysUser> selectAllUsers();
 
     /**
      * 根据条件分页查询已配用户角色列表

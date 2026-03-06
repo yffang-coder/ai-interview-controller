@@ -114,8 +114,8 @@ public class SecurityConfig {
                 // 注解标记允许匿名访问的url
                 .authorizeHttpRequests((requests) -> {
                     permitAllUrl.getUrls().forEach(url -> requests.requestMatchers(url).permitAll());
-                    // 对于登录login 注册register 验证码captchaImage 允许匿名访问
-                    requests.requestMatchers("/login", "/register", "/captchaImage","/mp/**")
+                    // 对于登录login 注册register 验证码captchaImage WebSocket 允许匿名访问
+                    requests.requestMatchers("/login", "/register", "/captchaImage", "/ws/**", "/mp/**","/ai/**")
                             .permitAll()
                             // 静态资源，可匿名访问
                             .requestMatchers(HttpMethod.GET, "/", "/*.html", "/**.html", "/**.css", "/**.js", "/profile/**").permitAll()

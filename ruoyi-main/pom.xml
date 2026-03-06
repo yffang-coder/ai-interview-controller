@@ -30,6 +30,12 @@
             <artifactId>lombok</artifactId>
         </dependency>
 
+        <!-- Spring WebSocket -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
+
         <!-- 测试依赖：JUnit5 + Mockito 等（仅测试范围） -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

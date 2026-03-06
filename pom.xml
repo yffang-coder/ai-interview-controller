@@ -42,6 +42,7 @@
         <mybatis.version>3.5.16</mybatis.version>
         <mybatis.version>3.5.16</mybatis.version>
         <minio.version>8.5.10</minio.version>
+        <websocket.version>3.3.1</websocket.version>
     </properties>
 
     <!-- 依赖声明 -->
@@ -137,6 +138,13 @@
                 <groupId>org.apache.tomcat.embed</groupId>
                 <artifactId>tomcat-embed-websocket</artifactId>
                 <version>${tomcat.version}</version>
+            </dependency>
+
+            <!-- Spring WebSocket -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-websocket</artifactId>
+                <version>${websocket.version}</version>
             </dependency>
 
             <!-- 阿里数据库连接池 -->
