@@ -46,4 +46,3 @@ nbdist/
 !*/build/*.html
 !*/build/*.xml
 deployment/.env
-deployment/.env.example
