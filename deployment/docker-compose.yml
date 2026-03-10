@@ -1,0 +1,44 @@
+services:
+  ai-interview-backend:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    container_name: ai-interview-backend
+    restart: always
+    ports:
+      - "8081:8080"
+    environment:
+      TZ: Asia/Shanghai
+      JAVA_OPTS: "-Xms512m -Xmx2g -Dmp.secret=${MP_SECRET} -Dmp.appid=${MP_APPID} -Dspring.datasource.druid.master.username=${DB_USERNAME} -Dspring.datasource.druid.master.password=${DB_PASSWORD} -Dai.token=${AI_TOKEN} -Dai.deepseek_token=${AI_DEEPSEEK_TOKEN} -Dai.doubao_token=${AI_DOUBAO_TOKEN} -Dai.qianwen_token=${AI_QIANWEN_TOKEN} -Dai.tengxun_hunyuan_token=${AI_TENGXUN_HUNYUAN_TOKEN}"
+      SPRING_PROFILES_ACTIVE: druid
+      SPRING_DATA_REDIS_HOST: ${REDIS_HOST:-redis}
+      SPRING_DATA_REDIS_PORT: ${REDIS_PORT:-6379}
+      MINIO_ENDPOINT: http://host.docker.internal:19000
+      MINIO_ACCESSKEY: ${MINIO_ACCESS_KEY}
+      MINIO_SECRETKEY: ${MINIO_SECRET_KEY}
+      MINIO_BUCKETNAME: user-info
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - app-network
+      - newshub-network
+
+  ai-interview-frontend:
+    build:
+      context: ../../../fronted/ai_admin/ai-interview-admin-ui
+      dockerfile: Dockerfile
+    container_name: ai-interview-frontend
+    restart: always
+    ports:
+      - "8091:80"
+    depends_on:
+      - ai-interview-backend
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+  newshub-network:
+    external: true
+    name: deployment_app-network

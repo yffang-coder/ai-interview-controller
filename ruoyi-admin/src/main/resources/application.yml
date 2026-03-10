@@ -101,7 +101,7 @@ token:
   expireTime: 30
 
 minio:
-  endpoint: http://127.0.0.1:19000
+  endpoint: http://host.docker.internal:9000
   accessKey: minioadmin
   secretKey: minioadmin
   publicEndpoint: https://yffxdq.cloud/pic  # 公网地址
