@@ -7,6 +7,8 @@ services:
     restart: always
     ports:
       - "8081:8080"
+    volumes:
+      - ./logs/backend:/var/log/ai-interview
     environment:
       TZ: Asia/Shanghai
       JAVA_OPTS: "-Xms512m -Xmx2g -Dmp.secret=${MP_SECRET} -Dmp.appid=${MP_APPID} -Dspring.datasource.druid.master.username=${DB_USERNAME} -Dspring.datasource.druid.master.password=${DB_PASSWORD} -Dai.token=${AI_TOKEN} -Dai.deepseek_token=${AI_DEEPSEEK_TOKEN} -Dai.doubao_token=${AI_DOUBAO_TOKEN} -Dai.qianwen_token=${AI_QIANWEN_TOKEN} -Dai.tengxun_hunyuan_token=${AI_TENGXUN_HUNYUAN_TOKEN}"

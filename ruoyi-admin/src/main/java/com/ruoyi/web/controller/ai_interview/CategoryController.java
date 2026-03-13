@@ -78,6 +78,7 @@ public class CategoryController extends BaseController {
     @Log(title = "category管理", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@ModelAttribute Category category, @RequestParam(value = "file", required = false) MultipartFile file) {
+        logger.info("category 111: {}", category.toString());
         if (categoryService.checkNameExsit(category)) {
             return error("编辑category'" + category.getName() + "'失败，名称已存在");
         }
@@ -90,6 +91,7 @@ public class CategoryController extends BaseController {
             String uploadFileUrl = minioUtil.uploadFile(file, newFilename);
             category.setSrc(uploadFileUrl);
         }
+        logger.info("category: {}", category.toString());
         return toAjax(categoryService.updateById(category));
     }
 

@@ -65,6 +65,17 @@ spring:
     restart:
       # 热部署开关
       enabled: true
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+    baseline-version: ${FLYWAY_BASELINE_VERSION:1}
+    validate-on-migrate: true
+    clean-disabled: true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${spring.datasource.druid.master.url}
+    user: ${spring.datasource.druid.master.username}
+    password: ${spring.datasource.druid.master.password}
   # redis 配置
   data:
     redis:

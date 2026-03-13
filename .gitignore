@@ -46,3 +46,6 @@ nbdist/
 !*/build/*.html
 !*/build/*.xml
 deployment/.env
+logs/
+.DS_Store
+Thumbs.db

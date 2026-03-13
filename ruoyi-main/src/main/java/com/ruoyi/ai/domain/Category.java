@@ -7,6 +7,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,6 +23,7 @@ import lombok.Setter;
 
 @TableName("ai_interview_category")
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
+@Data
 public class Category implements Serializable {
 
     private static final long serialVersionUID = 1L;

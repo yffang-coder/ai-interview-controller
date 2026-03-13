@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 
 /**
  * @author yffang
@@ -27,7 +26,6 @@ public class FileController extends BaseController {
     @Autowired
     private MinioUtil minioUtil;
 
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
     @PostMapping("/upload")
     public AjaxResult uploadFile(MultipartFile file) throws IOException {
         try {
@@ -35,7 +33,7 @@ public class FileController extends BaseController {
             String originalFilename = file.getOriginalFilename();
             assert originalFilename != null;
             String fileExtension = originalFilename.substring(originalFilename.lastIndexOf("."));
-            String newFilename = sdf.format(System.currentTimeMillis()) + fileExtension;
+            String newFilename = System.currentTimeMillis() + fileExtension;
             String uploadFile = minioUtil.uploadFile(file, newFilename);
             return AjaxResult.success(uploadFile);
         } catch (Exception e) {

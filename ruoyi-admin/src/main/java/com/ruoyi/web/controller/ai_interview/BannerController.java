@@ -50,23 +50,21 @@ public class BannerController extends BaseController {
     @PreAuthorize("@ss.hasPermi('ai:banner:add')")
     @Log(title = "banner管理", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@ModelAttribute Banner banner, @RequestParam("file") MultipartFile file) {
+    public AjaxResult add(@ModelAttribute Banner banner, @RequestParam(value = "file", required = false) MultipartFile file) {
         if (bannerService.checkTitleExsit(banner)) {
             return error("新增banner'" + banner.getTitle() + "'失败，名称已存在");
         }
-        String uploadFileUrl = "";
-        if(Strings.isEmpty(banner.getUrl())){
-            // 处理上传的文件
+        if (file != null) {
             String originalFilename = file.getOriginalFilename();
             assert originalFilename != null;
             String fileExtension = originalFilename.substring(originalFilename.lastIndexOf("."));
             String newFilename = sdf.format(System.currentTimeMillis()) + fileExtension;
-            uploadFileUrl = minioUtil.uploadFile(file, newFilename);
-        }else {
-            uploadFileUrl = banner.getUrl();
+            String uploadFileUrl = minioUtil.uploadFile(file, newFilename);
+            banner.setImage(uploadFileUrl);
         }
-        banner.setUrl(uploadFileUrl);
-        banner.setImage(uploadFileUrl);
+        if (Strings.isEmpty(banner.getImage())) {
+            return error("新增banner失败，请上传图片");
+        }
         return toAjax(bannerService.save(banner));
 
     }
@@ -86,20 +84,18 @@ public class BannerController extends BaseController {
         if (bannerService.checkTitleExsit(banner)) {
             return error("编辑banner'" + banner.getTitle() + "'失败，名称已存在");
         }
-        String uploadFileUrl = banner.getUrl();
-        if(Strings.isEmpty(uploadFileUrl) && file != null){
-            // 删除旧的文件
-            minioUtil.deleteFile(minioUtil.extractFileNameFromUrl(banner.getUrl()));
-            // 处理上传的文件
+        if (file != null) {
+            Banner oldBanner = banner.getId() == null ? null : bannerService.getById(banner.getId());
+            if (oldBanner != null && !Strings.isEmpty(oldBanner.getImage())) {
+                minioUtil.deleteFile(minioUtil.extractFileNameFromUrl(oldBanner.getImage()));
+            }
             String originalFilename = file.getOriginalFilename();
             assert originalFilename != null;
             String fileExtension = originalFilename.substring(originalFilename.lastIndexOf("."));
             String newFilename = sdf.format(System.currentTimeMillis()) + fileExtension;
-            uploadFileUrl = minioUtil.uploadFile(file, newFilename);
-
+            String uploadFileUrl = minioUtil.uploadFile(file, newFilename);
+            banner.setImage(uploadFileUrl);
         }
-        banner.setUrl(uploadFileUrl);
-        banner.setImage(uploadFileUrl);
         return toAjax(bannerService.updateById(banner));
     }
 
